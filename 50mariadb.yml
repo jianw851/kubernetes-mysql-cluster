@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mariadb
-  namespace: mysql
+  namespace: confluent
 spec:
   selector:
     matchLabels:
@@ -19,6 +19,10 @@ spec:
         prometheus.io/port: "9104"
     spec:
       terminationGracePeriodSeconds: 30
+      tolerations:
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
+        effect: "NoSchedule"
       initContainers:
       - name: init-config
         command: ['/bin/bash', '/etc/mysql/conf.d-configmap/init.sh']
@@ -108,14 +112,15 @@ spec:
         emptyDir: {}
       - name: conf-readonly
         configMap:
-          name: conf-d
+          name: conf-mariadb
       - name: initdb
         emptyDir: {}
   volumeClaimTemplates:
   - metadata:
       name: mysql
     spec:
-      accessModes: [ "ReadWriteOnce" ]
+      accessModes: [ "ReadWriteMany" ]
       resources:
         requests:
-          storage: 1Gi
+          storage: 50Gi
+      storageClassName: "local-mariadb"

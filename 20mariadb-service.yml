@@ -4,7 +4,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mariadb
-  namespace: mysql
+  namespace: confluent
   annotations:
     service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
 spec:
