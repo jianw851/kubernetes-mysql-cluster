@@ -1,0 +1,75 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: master-mariadb-dw-pv
+  namespace: dw
+  labels:
+    type: local
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 350Gi
+  local:
+    path: /mnt/mariadb-dw
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-mariadb-dw
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - master
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: dw
+  name: live1-mariadb-dw-pv
+  labels:
+    type: local
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 350Gi
+  local:
+    path: /mnt/mariadb-dw
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-mariadb-dw
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - live1
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: dw
+  name: live2-mariadb-dw-pv
+  labels:
+    type: local
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 350Gi
+  local:
+    path: /mnt/mariadb-dw
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-mariadb-dw
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - live2

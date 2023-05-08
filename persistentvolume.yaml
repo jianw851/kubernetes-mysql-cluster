@@ -1,0 +1,72 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: master-mariadb-pv
+  labels:
+    type: local
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 50Gi
+  local:
+    path: /mnt/mariadb
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-mariadb
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - master
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: live1-mariadb-pv
+  labels:
+    type: local
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 50Gi
+  local:
+    path: /mnt/mariadb
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-mariadb
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - live1
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: live2-mariadb-pv
+  labels:
+    type: local
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 50Gi
+  local:
+    path: /mnt/mariadb
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-mariadb
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - live2
