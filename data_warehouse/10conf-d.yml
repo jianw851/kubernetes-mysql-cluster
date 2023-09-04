@@ -46,7 +46,22 @@ data:
     collation-server = utf8mb4_unicode_ci
     init-connect='SET NAMES utf8mb4'
     explicit_defaults_for_timestamp = 1
-    innodb_buffer_pool_size = 20G
+    innodb_buffer_pool_size = 40G
+    tmp_table_size = 10G
+    max_heap_table_size = 10G
+    query_cache_size = 2G
+    key_buffer_size = 1G
+    max_connections = 500
+    thread_cache_size = 100
+    innodb_doublewrite = 0
+    innodb_log_file_size = 2G
+    innodb_flush_log_at_trx_commit = 2
+    join_buffer_size = 5G
+    sort_buffer_size = 1G
+    read_rnd_buffer_size = 1G
+    table_open_cache = 8192
+    # fast backup or import
+    max_allowed_packet = 1G
 
 
     [mysql]
